@@ -1,13 +1,18 @@
 package main
 
 import (
+	"os"
+
 	"github.com/engineerd/wasm-to-oci/pkg/oci"
+	"github.com/engineerd/wasm-to-oci/pkg/tuf"
 	"github.com/spf13/cobra"
 )
 
 type pullOptions struct {
 	ref     string
 	outFile string
+
+	sign bool
 }
 
 func newPullCmd() *cobra.Command {
@@ -22,10 +27,21 @@ func newPullCmd() *cobra.Command {
 		},
 	}
 	cmd.Flags().StringVarP(&opts.outFile, "out", "o", "module.wasm", "Name of the output module")
+	cmd.Flags().BoolVarP(&opts.sign, "sign", "", false, "Verifies the signature of the WebAssembly module from a trust server")
 
 	return cmd
 }
 
 func (p *pullOptions) run() error {
-	return oci.Pull(p.ref, p.outFile)
+	err := oci.Pull(p.ref, p.outFile)
+	if err != nil {
+		return err
+	}
+
+	err = tuf.VerifyFileTrust(p.ref, p.outFile, trustServer, tlscacert, trustDir, timeout)
+	if err != nil {
+		return os.Remove(p.outFile)
+	}
+
+	return nil
 }
