@@ -36,11 +36,14 @@ func newPushCmd() *cobra.Command {
 }
 
 func (p *pushOptions) run() error {
-	target, err := tuf.SignAndPublish(trustDir, trustServer, p.ref, p.module, tlscacert, "", timeout, nil)
-	if err != nil {
-		return fmt.Errorf("cannot sign and publish trust data: %v", err)
+	if p.sign {
+		target, err := tuf.SignAndPublish(trustDir, trustServer, p.ref, p.module, tlscacert, "", timeout, nil)
+		if err != nil {
+			return fmt.Errorf("cannot sign and publish trust data: %v", err)
+		}
+		log.Infof("Pushed trust data for %v: %v\n", p.ref, hex.EncodeToString(target.Hashes["sha256"]))
+
 	}
-	log.Infof("Pushed trust data for %v: %v\n", p.ref, hex.EncodeToString(target.Hashes["sha256"]))
 
 	return oci.Push(p.ref, p.module)
 }

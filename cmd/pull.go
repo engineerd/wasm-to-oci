@@ -38,9 +38,12 @@ func (p *pullOptions) run() error {
 		return err
 	}
 
-	err = tuf.VerifyFileTrust(p.ref, p.outFile, trustServer, tlscacert, trustDir, timeout)
-	if err != nil {
-		return os.Remove(p.outFile)
+	if p.sign {
+		err = tuf.VerifyFileTrust(p.ref, p.outFile, trustServer, tlscacert, trustDir, timeout)
+		if err != nil {
+			os.Remove(p.outFile)
+			return err
+		}
 	}
 
 	return nil

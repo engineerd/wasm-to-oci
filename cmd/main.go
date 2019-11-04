@@ -5,8 +5,10 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/engineerd/wasm-to-oci/pkg/tuf"
+	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+
+	"github.com/engineerd/wasm-to-oci/pkg/tuf"
 )
 
 var (
@@ -20,6 +22,14 @@ var (
 func main() {
 	cmd := &cobra.Command{
 		Use: "wasm-to-oci <subcommand> [options]",
+		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+			l, err := log.ParseLevel(logLevel)
+			if err != nil {
+				return err
+			}
+			log.SetLevel(l)
+			return nil
+		},
 	}
 
 	cmd.PersistentFlags().StringVarP(&trustServer, "server", "", tuf.DockerNotaryServer, "The trust server used")
@@ -40,5 +50,5 @@ func defaultTrustDir() string {
 		homeEnvPath = os.Getenv("USERPROFILE")
 	}
 
-	return filepath.Join(homeEnvPath, ".signy")
+	return filepath.Join(homeEnvPath, ".wasm-to-oci")
 }
