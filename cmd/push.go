@@ -1,13 +1,21 @@
 package main
 
 import (
-	"github.com/engineerd/wasm-to-oci/pkg/oci"
+	"encoding/hex"
+	"fmt"
+
+	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+
+	"github.com/engineerd/wasm-to-oci/pkg/oci"
+	"github.com/engineerd/wasm-to-oci/pkg/tuf"
 )
 
 type pushOptions struct {
 	module string
 	ref    string
+
+	sign bool
 }
 
 func newPushCmd() *cobra.Command {
@@ -23,9 +31,19 @@ func newPushCmd() *cobra.Command {
 		},
 	}
 
+	cmd.Flags().BoolVarP(&opts.sign, "sign", "", false, "Signs the WebAssembly module and pushes the metadata to a trust server")
 	return cmd
 }
 
 func (p *pushOptions) run() error {
+	if p.sign {
+		target, err := tuf.SignAndPublish(trustDir, trustServer, p.ref, p.module, tlscacert, "", timeout, nil)
+		if err != nil {
+			return fmt.Errorf("cannot sign and publish trust data: %v", err)
+		}
+		log.Infof("Pushed trust data for %v: %v\n", p.ref, hex.EncodeToString(target.Hashes["sha256"]))
+
+	}
+
 	return oci.Push(p.ref, p.module)
 }

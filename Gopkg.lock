@@ -48,6 +48,17 @@
   version = "v0.8.6"
 
 [[projects]]
+  branch = "master"
+  digest = "1:47ea4fbe2ab4aeb9808502c51e657041c2e49b36b83fc1c1a349135cdf16342f"
+  name = "github.com/agl/ed25519"
+  packages = [
+    ".",
+    "edwards25519",
+  ]
+  pruneopts = "UT"
+  revision = "5312a61534124124185d41f09206b9fef1d88403"
+
+[[projects]]
   digest = "1:d6afaeed1502aa28e80a4ed0981d570ad91b2579193404256ce672ed0a609e0d"
   name = "github.com/beorn7/perks"
   packages = ["quantile"]
@@ -56,10 +67,9 @@
   version = "v1.0.1"
 
 [[projects]]
-  digest = "1:7563fdf39724fa862099ecc1b78c6e0c94eb978378082f3994f3b59a5f4c61dd"
+  digest = "1:578875595d05c8c2b81e6f3a243ceaa8c310a7d769637170723fcdce26ef8cff"
   name = "github.com/containerd/containerd"
   packages = [
-    "archive/compression",
     "content",
     "content/local",
     "errdefs",
@@ -70,13 +80,10 @@
     "reference",
     "remotes",
     "remotes/docker",
-    "remotes/docker/schema1",
     "sys",
-    "version",
   ]
   pruneopts = "UT"
-  revision = "d50db0a42053864a270f648048f9a8b4f24eced3"
-  version = "v1.2.9"
+  revision = "894b81a4b802e4eb2a91d1ce216b8817763c29fb"
 
 [[projects]]
   branch = "master"
@@ -118,11 +125,11 @@
     "cli/config/types",
   ]
   pruneopts = "UT"
-  revision = "578ab52ece34b084621954e0b543003410cdbe84"
-  version = "v19.03.2"
+  revision = "2355349d8b99ea2c15bbdd7f1f203fa078e9bb4e"
+  version = "v19.03.4"
 
 [[projects]]
-  digest = "1:c22e25eae6d474723f1e6ed273ad5532429165f933165c77fe687f8d11087137"
+  digest = "1:5a687741d0f62f73b87c37ad70cf8efcd9d6a4c1c65c0989cc354ced624b4743"
   name = "github.com/docker/distribution"
   packages = [
     ".",
@@ -137,6 +144,7 @@
     "registry/client/transport",
     "registry/storage/cache",
     "registry/storage/cache/memory",
+    "uuid",
   ]
   pruneopts = "UT"
   revision = "2461543d988979529609e8cb6fca9ca190dc48da"
@@ -187,6 +195,14 @@
   version = "v0.6.3"
 
 [[projects]]
+  digest = "1:44fd27d0559326eb63ee0b7b5c80832c821761ff6d1b9cc4ad075783485a5837"
+  name = "github.com/docker/go"
+  packages = ["canonical/json"]
+  pruneopts = "UT"
+  revision = "62e5ec7cf43f795986ec658df7cb317255772993"
+  version = "v1.5.1-1"
+
+[[projects]]
   digest = "1:811c86996b1ca46729bad2724d4499014c4b9effd05ef8c71b852aad90deb0ce"
   name = "github.com/docker/go-connections"
   packages = [
@@ -215,12 +231,12 @@
   version = "v0.4.0"
 
 [[projects]]
-  digest = "1:4882ca4e50712f367a52a467a277dcd8ef877b82acaa5973baea92fe7443f2eb"
+  digest = "1:4caab6f14c6b9654ccb7d398791d1f71a2d4e693ea508d29659a173e1b2e644a"
   name = "github.com/gogo/protobuf"
   packages = ["proto"]
   pruneopts = "UT"
-  revision = "0ca988a254f991240804bf9821f3450d87ccbb1b"
-  version = "v1.3.0"
+  revision = "5628607bb4c51c3157aacc3a50f0ab707582b805"
+  version = "v1.3.1"
 
 [[projects]]
   digest = "1:f5ce1529abc1204444ec73779f44f94e2fa8fcdb7aca3c355b0c95947e4005c6"
@@ -269,12 +285,20 @@
   version = "v1.0.1"
 
 [[projects]]
-  branch = "master"
+  digest = "1:4e6747259a47ce5cd9dc04bbaef87b8e061b32038f428c05db7179e5ec3e47ff"
+  name = "github.com/miekg/pkcs11"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "210dc1e16747c5ba98a03bcbcf728c38086ea357"
+  version = "v1.0.3"
+
+[[projects]]
   digest = "1:906eb1ca3c8455e447b99a45237b2b9615b665608fd07ad12cce847dd9a1ec43"
   name = "github.com/morikuni/aec"
   packages = ["."]
   pruneopts = "UT"
   revision = "39771216ff4c63d11f5e604076f9c45e8be1067b"
+  version = "v1.0.0"
 
 [[projects]]
   digest = "1:ee4d4af67d93cc7644157882329023ce9a7bcfce956a079069a9405521c7cc8d"
@@ -383,6 +407,40 @@
   version = "v1.0.5"
 
 [[projects]]
+  digest = "1:3b65d4044b1331df2a369f8e75eef5972eb0c28a90159d25e317db2cee95a3b6"
+  name = "github.com/theupdateframework/notary"
+  packages = [
+    ".",
+    "client",
+    "client/changelist",
+    "cryptoservice",
+    "passphrase",
+    "storage",
+    "trustmanager",
+    "trustmanager/yubikey",
+    "trustpinning",
+    "tuf",
+    "tuf/data",
+    "tuf/signed",
+    "tuf/utils",
+    "tuf/validation",
+  ]
+  pruneopts = "UT"
+  revision = "d6e1431feb32348e0650bf7551ac5cffd01d857b"
+  version = "v0.6.1"
+
+[[projects]]
+  branch = "master"
+  digest = "1:35ce874cf16f78a2da908ab28b0277497e36603d289db00d39da5200bc8ace08"
+  name = "golang.org/x/crypto"
+  packages = [
+    "pbkdf2",
+    "ssh/terminal",
+  ]
+  pruneopts = "UT"
+  revision = "8986dd9e96cf0a6f74da406c005ba3df38527c04"
+
+[[projects]]
   branch = "master"
   digest = "1:081604e98d8aa3c3576bf78566ba71e9d7ab484721461e14e38ff9a7b00acca7"
   name = "golang.org/x/net"
@@ -392,7 +450,7 @@
     "proxy",
   ]
   pruneopts = "UT"
-  revision = "aa69164e4478b84860dc6769c710c699c67058a3"
+  revision = "0deb6923b6d97481cb43bc1043fe5b72a0143032"
 
 [[projects]]
   branch = "master"
@@ -404,14 +462,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:84aa29f57ad15b7344340348606996a4251bca7b1f8c5fa5370eea3a44e8ed07"
+  digest = "1:2c482fc32bdcfc572ce8b9cc37a409ae8a24c604b0dde73301d8de05d2c1f3e7"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "2837fb4f24fee082b8c39b1a6dc9e0ed9f3fbd4f"
+  revision = "f43be2a4598cf3a47be9f94f0c28197ed9eae611"
 
 [[projects]]
   branch = "master"
@@ -419,7 +477,7 @@
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
   pruneopts = "UT"
-  revision = "f660b865573183437d2d868f703fe88bb8af0b55"
+  revision = "919d9bdd9fe6f1a5dd95ce5d5e4cdb8fd3c516d0"
 
 [[projects]]
   digest = "1:dd9e017df31acd9cf78ad0df2c8a1132fb3f724ec9287240ee7306364130bafc"
@@ -432,8 +490,8 @@
     "status",
   ]
   pruneopts = "UT"
-  revision = "39e8a7b072a67ca2a75f57fa2e0d50995f5b22f6"
-  version = "v1.23.1"
+  revision = "f6d0f9ee430895e87ef1ceb5ac8f39725bafceef"
+  version = "v1.24.0"
 
 [solve-meta]
   analyzer-name = "dep"
@@ -445,8 +503,23 @@
     "github.com/deislabs/oras/pkg/content",
     "github.com/deislabs/oras/pkg/context",
     "github.com/deislabs/oras/pkg/oras",
+    "github.com/docker/cli/cli/config",
+    "github.com/docker/cli/cli/config/types",
+    "github.com/docker/distribution/registry/client/auth",
+    "github.com/docker/distribution/registry/client/auth/challenge",
+    "github.com/docker/distribution/registry/client/transport",
+    "github.com/docker/go/canonical/json",
     "github.com/opencontainers/image-spec/specs-go/v1",
+    "github.com/sirupsen/logrus",
     "github.com/spf13/cobra",
+    "github.com/theupdateframework/notary",
+    "github.com/theupdateframework/notary/client",
+    "github.com/theupdateframework/notary/cryptoservice",
+    "github.com/theupdateframework/notary/passphrase",
+    "github.com/theupdateframework/notary/trustmanager",
+    "github.com/theupdateframework/notary/trustpinning",
+    "github.com/theupdateframework/notary/tuf/data",
+    "github.com/theupdateframework/notary/tuf/utils",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

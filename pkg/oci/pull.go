@@ -1,10 +1,10 @@
 package oci
 
 import (
-	"fmt"
 	"io/ioutil"
 
 	"github.com/deislabs/oras/pkg/oras"
+	log "github.com/sirupsen/logrus"
 )
 
 // Pull pulls a WASM module from an OCI registry given a reference
@@ -25,9 +25,9 @@ func Pull(ref, outFile string) error {
 	manifest, contents, _ := store.Get(desc)
 	ioutil.WriteFile(outFile, contents, 0755)
 
-	fmt.Printf("\nPulled: %v", ref)
-	fmt.Printf("\nSize: %v", desc.Size)
-	fmt.Printf("\nDigest: %v", manifest.Digest)
+	log.Infof("Pulled: %v", ref)
+	log.Infof("Size: %v", desc.Size)
+	log.Infof("Digest: %v", manifest.Digest)
 
 	return nil
 }

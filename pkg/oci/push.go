@@ -1,11 +1,11 @@
 package oci
 
 import (
-	"fmt"
 	"io/ioutil"
 
 	"github.com/deislabs/oras/pkg/oras"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
+	log "github.com/sirupsen/logrus"
 )
 
 // Push pushes a WASM module an OCI registry
@@ -30,9 +30,9 @@ func Push(ref, module string) error {
 		return err
 	}
 
-	fmt.Printf("\nPushed: %v", ref)
-	fmt.Printf("\nSize: %v", desc.Size)
-	fmt.Printf("\nDigest: %v", manifest.Digest)
+	log.Infof("Pushed: %v", ref)
+	log.Infof("Size: %v", desc.Size)
+	log.Infof("Digest: %v", manifest.Digest)
 
 	return nil
 }
