@@ -3,16 +3,59 @@ use std::os::raw::c_char;
 
 extern crate libloading as lib;
 
+fn lib_file() -> String {
+    #[cfg(target_os = "linux")]
+    {
+        String::from("libwasm2oci.so")
+    }
+    #[cfg(target_os = "macos")]
+    {
+        String::from("libwasm2oci.dylib")
+    }
+    #[cfg(target_os = "windows")]
+    {
+        String::from("libwasm2oci.dll")
+    }
+}
+
 pub fn pull_wasm(reference: &str, file: &str) -> lib::Result<i64> {
     let c_ref = CString::new(reference)?;
     let c_file = CString::new(file)?;
 
-    let go_str_ref = GoString{p: c_ref.as_ptr(), n: c_ref.as_bytes().len() as isize};
-    let go_str_file = GoString{p: c_file.as_ptr(), n: c_file.as_bytes().len() as isize};
+    let go_str_ref = GoString {
+        p: c_ref.as_ptr(),
+        n: c_ref.as_bytes().len() as isize,
+    };
+    let go_str_file = GoString {
+        p: c_file.as_ptr(),
+        n: c_file.as_bytes().len() as isize,
+    };
 
-    let lib = lib::Library::new("../libwasm2oci.dylib")?;
+    let lib = lib::Library::new(lib_file())?;
     unsafe {
-        let func: lib::Symbol<unsafe extern fn(r: GoString, f: GoString) -> i64> = lib.get(b"Pull")?;
+        let func: lib::Symbol<unsafe extern "C" fn(r: GoString, f: GoString) -> i64> =
+            lib.get(b"Pull")?;
+        Ok(func(go_str_ref, go_str_file))
+    }
+}
+
+pub fn push_wasm(reference: &str, file: &str) -> lib::Result<i64> {
+    let c_ref = CString::new(reference)?;
+    let c_file = CString::new(file)?;
+
+    let go_str_ref = GoString {
+        p: c_ref.as_ptr(),
+        n: c_ref.as_bytes().len() as isize,
+    };
+    let go_str_file = GoString {
+        p: c_file.as_ptr(),
+        n: c_file.as_bytes().len() as isize,
+    };
+
+    let lib = lib::Library::new(lib_file())?;
+    unsafe {
+        let func: lib::Symbol<unsafe extern "C" fn(r: GoString, f: GoString) -> i64> =
+            lib.get(b"Push")?;
         Ok(func(go_str_ref, go_str_file))
     }
 }

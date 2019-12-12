@@ -4,5 +4,19 @@ version = "0.1.0"
 authors = ["Radu Matei <root@radu.sh>"]
 edition = "2018"
 
+include = [
+    "**/*.rs",
+    "Cargo.toml",
+
+    # this crate depends on the shared object compiled from Go
+    # so we're including the platform-specific compiled artifact
+    # for Linux, MacOS, and Windows, together with the C header.
+
+    "libwasm2oci.so",
+    "libwasm2oci.dylib",
+    "libwasm2oci.dll",
+    "libwasm2oci.h"
+]
+
 [dependencies]
 libloading = "0.5"
