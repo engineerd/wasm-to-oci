@@ -3,6 +3,8 @@ name = "libwasm2oci"
 version = "0.1.0"
 authors = ["Radu Matei <root@radu.sh>"]
 edition = "2018"
+description = "Rust API for pushing WebAssembly modules to OCI registries, using an FFI shim from Go."
+license = "MIT"
 
 include = [
     "**/*.rs",
