@@ -6,15 +6,15 @@ extern crate libloading as lib;
 fn lib_file() -> String {
     #[cfg(target_os = "linux")]
     {
-        String::from("libwasm2oci.so")
+        String::from("shared/libwasm2oci.so")
     }
     #[cfg(target_os = "macos")]
     {
-        String::from("libwasm2oci.dylib")
+        String::from("shared/libwasm2oci.dylib")
     }
     #[cfg(target_os = "windows")]
     {
-        String::from("libwasm2oci.dll")
+        String::from("shared/libwasm2oci.dll")
     }
 }
 
@@ -30,6 +30,8 @@ pub fn pull_wasm(reference: &str, file: &str) -> lib::Result<i64> {
         p: c_file.as_ptr(),
         n: c_file.as_bytes().len() as isize,
     };
+
+    println!("using lib file {}", lib_file());
 
     let lib = lib::Library::new(lib_file())?;
     unsafe {
