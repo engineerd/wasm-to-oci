@@ -1,0 +1,21 @@
+name: GitHub Actions
+on: [push, pull_request]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go 1.13
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.13
+        id: go
+
+      - name: Check out code
+        uses: actions/checkout@v1
+
+      - name: Build, Test, Lint
+        run: |
+          export GOPATH=$HOME/go && export GOBIN=$(go env GOPATH)/bin && export PATH=$PATH:$GOPATH&& export PATH=$PATH:$GOBIN && mkdir -p $GOBIN
+
+          make bootstrap build test lint
