@@ -9,8 +9,8 @@ import (
 )
 
 // Push pushes a WASM module an OCI registry
-func Push(ref, module string) error {
-	ctx, resolver, store := newORASContext()
+func Push(ref, module string, insecure, useHTTP bool) error {
+	ctx, resolver, store := newORASContext(insecure, useHTTP)
 
 	contents, err := ioutil.ReadFile(module)
 	if err != nil {

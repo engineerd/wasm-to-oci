@@ -45,5 +45,5 @@ func (p *pushOptions) run() error {
 
 	}
 
-	return oci.Push(p.ref, p.module)
+	return oci.Push(p.ref, p.module, insecure, useHTTP)
 }

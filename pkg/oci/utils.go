@@ -2,7 +2,9 @@ package oci
 
 import (
 	"context"
+	"crypto/tls"
 	"fmt"
+	"net/http"
 	"os"
 
 	"github.com/containerd/containerd/remotes"
@@ -12,14 +14,24 @@ import (
 	orasctx "github.com/deislabs/oras/pkg/context"
 )
 
-func newORASContext() (context.Context, remotes.Resolver, *orascnt.Memorystore) {
+func newORASContext(insecure, useHTTP bool) (context.Context, remotes.Resolver, *orascnt.Memorystore) {
 	ctx := orasctx.Background()
 	memoryStore := orascnt.NewMemoryStore()
 	cli, err := auth.NewClient()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "WARNING: Error loading auth file: %v\n", err)
 	}
-	resolver, err := cli.Resolver(context.Background())
+
+	client := http.DefaultClient
+	if insecure {
+		client.Transport = &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		}
+	}
+
+	resolver, err := cli.Resolver(context.Background(), client, useHTTP)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "WARNING: Error loading resolver: %v\n", err)
 		resolver = docker.NewResolver(docker.ResolverOptions{})

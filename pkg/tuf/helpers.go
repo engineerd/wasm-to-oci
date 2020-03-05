@@ -14,12 +14,9 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"path/filepath"
-	"runtime"
 	"strings"
 	"time"
 
-	"github.com/docker/cli/cli/config"
 	configtypes "github.com/docker/cli/cli/config/types"
 	"github.com/docker/distribution/registry/client/auth"
 	"github.com/docker/distribution/registry/client/auth/challenge"
@@ -38,8 +35,8 @@ const (
 	// DockerNotaryServer is the default Notary server associated with Docker Hub
 	DockerNotaryServer = "https://notary.docker.io"
 
-	configFileDir      = ".docker"
-	defaultIndexServer = "https://index.docker.io/v1/"
+	// configFileDir      = ".docker"
+	// defaultIndexServer = "https://index.docker.io/v1/"
 )
 
 func makeTransport(server, gun, tlsCaCert, timeout string) (http.RoundTripper, error) {
@@ -227,36 +224,36 @@ func getPassphraseRetriever() notary.PassRetriever {
 	}
 }
 
-func getAuth(server string) (configtypes.AuthConfig, error) {
-	s, err := url.Parse(server)
-	if err != nil {
-		return configtypes.AuthConfig{}, fmt.Errorf("cannot parse trust server URL: %v", err)
-	}
+// func getAuth(server string) (configtypes.AuthConfig, error) {
+// 	s, err := url.Parse(server)
+// 	if err != nil {
+// 		return configtypes.AuthConfig{}, fmt.Errorf("cannot parse trust server URL: %v", err)
+// 	}
 
-	cfg, err := config.Load(defaultCfgDir())
-	if err != nil {
-		return configtypes.AuthConfig{}, err
-	}
+// 	cfg, err := config.Load(defaultCfgDir())
+// 	if err != nil {
+// 		return configtypes.AuthConfig{}, err
+// 	}
 
-	auth, ok := cfg.AuthConfigs[s.Hostname()]
-	if !ok {
-		if s.Hostname() == DockerNotaryServer {
-			return cfg.AuthConfigs[defaultIndexServer], nil
-		}
-		return configtypes.AuthConfig{}, fmt.Errorf("authentication not found for trust server %v", server)
-	}
+// 	auth, ok := cfg.AuthConfigs[s.Hostname()]
+// 	if !ok {
+// 		if s.Hostname() == DockerNotaryServer {
+// 			return cfg.AuthConfigs[defaultIndexServer], nil
+// 		}
+// 		return configtypes.AuthConfig{}, fmt.Errorf("authentication not found for trust server %v", server)
+// 	}
 
-	return auth, nil
-}
+// 	return auth, nil
+// }
 
-func defaultCfgDir() string {
-	homeEnvPath := os.Getenv("HOME")
-	if homeEnvPath == "" && runtime.GOOS == "windows" {
-		homeEnvPath = os.Getenv("USERPROFILE")
-	}
+// func defaultCfgDir() string {
+// 	homeEnvPath := os.Getenv("HOME")
+// 	if homeEnvPath == "" && runtime.GOOS == "windows" {
+// 		homeEnvPath = os.Getenv("USERPROFILE")
+// 	}
 
-	return filepath.Join(homeEnvPath, configFileDir)
-}
+// 	return filepath.Join(homeEnvPath, configFileDir)
+// }
 
 type simpleCredentialStore struct {
 	auth configtypes.AuthConfig
