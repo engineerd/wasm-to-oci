@@ -7,6 +7,10 @@ This project is built with the [ORAS project](https://github.com/deislabs/oras),
 - [Distribution (open source, version 2.7+)](https://github.com/docker/distribution)
 - [Azure Container Registry](https://docs.microsoft.com/en-us/azure/container-registry/)
 
+> Note that trying to push a WebAssembly module to Docker Hub is not supported yet, as Docker Hub does _not_ accept unknown artifact types.
+
+> As more registries add support for OCI Artifacts, we will update the list of supported registries.
+
 # Usage
 
 - pushing to an OCI registry:
@@ -43,7 +47,7 @@ Hello from WebAssembly!
 
 Since this is using ORAS to interact with OCI registries, here is a generated OCI manifest:
 
-```
+```json
 {
   "schemaVersion": 2,
   "config": {
