@@ -3,9 +3,10 @@ package main
 import (
 	"os"
 
+	"github.com/spf13/cobra"
+
 	"github.com/engineerd/wasm-to-oci/pkg/oci"
 	"github.com/engineerd/wasm-to-oci/pkg/tuf"
-	"github.com/spf13/cobra"
 )
 
 type pullOptions struct {
