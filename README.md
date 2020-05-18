@@ -6,12 +6,16 @@ This project is built with the [ORAS project](https://github.com/deislabs/oras),
 
 - [Distribution (open source, version 2.7+)](https://github.com/docker/distribution)
 - [Azure Container Registry](https://docs.microsoft.com/en-us/azure/container-registry/)
+- [Google Container Registry](https://cloud.google.com/container-registry/)
+- [Harbor Container Registry v2.0](https://github.com/goharbor/harbor/releases/tag/v2.0.0)
 
-> Note that trying to push a WebAssembly module to Docker Hub is not supported yet, as Docker Hub does _not_ accept unknown artifact types.
+> Note that trying to push a WebAssembly module to Docker Hub is not supported at the time of writing this document, as Docker Hub does _not_ accept unknown artifact types.
 
 > As more registries add support for OCI Artifacts, we will update the list of supported registries.
 
 # Usage
+
+- login to your container registry using the `docker` CLI (or other tooling that your container registry provides. `wasm-to-oci` will use the credentials in `~/.docker/config.json`)
 
 - pushing to an OCI registry:
 
@@ -38,14 +42,15 @@ Digest: sha256:4c7915b4c1f9b0c13f962998e4199ceb00db39a4a7fa4554f40ae0bed83d9510
 
 $ wasmtime test.wasm
 Hello from WebAssembly!
-
-$ wasmer run test.wasm
-Hello from WebAssembly!
 ```
 
-# The OCI manifest
+# How does this work?
 
-Since this is using ORAS to interact with OCI registries, here is a generated OCI manifest:
+This leverages [the OCI Artifacts proposal](https://github.com/opencontainers/artifacts), whose goal is to enable the distribution of more
+cloud native artifacts using existing registry infrastructure, and uses it to store WebAssembly modules as single layer blobs in the registry.
+
+This project defines a new set of _unofficial_ media types used to identify a WebAssembly artifact - the artifacts project also describes the
+process for projects to [apply for an official unique media type](https://github.com/opencontainers/artifacts/blob/master/artifact-authors.md#registering-unique-types-with-iana).
 
 ```json
 {
@@ -64,3 +69,5 @@ Since this is using ORAS to interact with OCI registries, here is a generated OC
   ]
 }
 ```
+
+There is also experimental support for artifact signing with Notary v1 - see [this article](https://radu-matei.com/blog/wasm-oci-tuf/) for more background on this topic.
