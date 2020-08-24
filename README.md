@@ -1,21 +1,29 @@
 # WASM to OCI
 
-The goal of this project is to propose an implementation of storing WebAssembly modules in OCI registries.
+The goal of this project is to propose an implementation of storing WebAssembly
+modules in OCI registries.
 
-This project is built with the [ORAS project](https://github.com/deislabs/oras), and currently works with:
+This project is built with the [ORAS project](https://github.com/deislabs/oras),
+and currently works with:
 
 - [Distribution (open source, version 2.7+)](https://github.com/docker/distribution)
 - [Azure Container Registry](https://docs.microsoft.com/en-us/azure/container-registry/)
 - [Google Container Registry](https://cloud.google.com/container-registry/)
 - [Harbor Container Registry v2.0](https://github.com/goharbor/harbor/releases/tag/v2.0.0)
+- [Bundle Bar](https://bundle.bar/docs/supported-clients/wasm-to-oci/)
 
-> Note that trying to push a WebAssembly module to Docker Hub is not supported at the time of writing this document, as Docker Hub does _not_ accept unknown artifact types.
+> Note that trying to push a WebAssembly module to Docker Hub is not supported
+> at the time of writing this document, as Docker Hub does _not_ accept unknown
+> artifact types.
 
-> As more registries add support for OCI Artifacts, we will update the list of supported registries.
+> As more registries add support for OCI Artifacts, we will update the list of
+> supported registries.
 
 # Usage
 
-- login to your container registry using the `docker` CLI (or other tooling that your container registry provides. `wasm-to-oci` will use the credentials in `~/.docker/config.json`)
+- login to your container registry using the `docker` CLI (or other tooling that
+  your container registry provides. `wasm-to-oci` will use the credentials in
+  `~/.docker/config.json`)
 
 - pushing to an OCI registry:
 
@@ -46,11 +54,16 @@ Hello from WebAssembly!
 
 # How does this work?
 
-This leverages [the OCI Artifacts proposal](https://github.com/opencontainers/artifacts), whose goal is to enable the distribution of more
-cloud native artifacts using existing registry infrastructure, and uses it to store WebAssembly modules as single layer blobs in the registry.
+This leverages
+[the OCI Artifacts proposal](https://github.com/opencontainers/artifacts), whose
+goal is to enable the distribution of more cloud native artifacts using existing
+registry infrastructure, and uses it to store WebAssembly modules as single
+layer blobs in the registry.
 
-This project defines a new set of _unofficial_ media types used to identify a WebAssembly artifact - the artifacts project also describes the
-process for projects to [apply for an official unique media type](https://github.com/opencontainers/artifacts/blob/master/artifact-authors.md#registering-unique-types-with-iana).
+This project defines a new set of _unofficial_ media types used to identify a
+WebAssembly artifact - the artifacts project also describes the process for
+projects to
+[apply for an official unique media type](https://github.com/opencontainers/artifacts/blob/master/artifact-authors.md#registering-unique-types-with-iana).
 
 ```json
 {
@@ -70,4 +83,6 @@ process for projects to [apply for an official unique media type](https://github
 }
 ```
 
-There is also experimental support for artifact signing with Notary v1 - see [this article](https://radu-matei.com/blog/wasm-oci-tuf/) for more background on this topic.
+There is also experimental support for artifact signing with Notary v1 - see
+[this article](https://radu-matei.com/blog/wasm-oci-tuf/) for more background on
+this topic.
