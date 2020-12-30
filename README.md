@@ -9,6 +9,7 @@ and currently works with:
 - [Distribution (open source, version 2.7+)](https://github.com/docker/distribution)
 - [Azure Container Registry](https://docs.microsoft.com/en-us/azure/container-registry/)
 - [Google Container Registry](https://cloud.google.com/container-registry/)
+- [Google Artifact Registry](https://cloud.google.com/artifact-registry)
 - [Harbor Container Registry v2.0](https://github.com/goharbor/harbor/releases/tag/v2.0.0)
 - [Bundle Bar](https://bundle.bar/docs/supported-clients/wasm-to-oci/)
 
