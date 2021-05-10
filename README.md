@@ -12,6 +12,7 @@ and currently works with:
 - [Google Artifact Registry](https://cloud.google.com/artifact-registry)
 - [Harbor Container Registry v2.0](https://github.com/goharbor/harbor/releases/tag/v2.0.0)
 - [Bundle Bar](https://bundle.bar/docs/supported-clients/wasm-to-oci/)
+- [GitHub Package Registry](https://github.com/features/packages)
 
 > Note that trying to push a WebAssembly module to Docker Hub is not supported
 > at the time of writing this document, as Docker Hub does _not_ accept unknown
