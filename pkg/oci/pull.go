@@ -3,8 +3,8 @@ package oci
 import (
 	"io/ioutil"
 
-	"github.com/oras-project/oras-go/pkg/oras"
 	log "github.com/sirupsen/logrus"
+	"oras.land/oras-go/pkg/oras"
 )
 
 // Pull pulls a Wasm module from an OCI registry given a reference

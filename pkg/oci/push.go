@@ -4,8 +4,8 @@ import (
 	"io/ioutil"
 
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
-	"github.com/oras-project/oras-go/pkg/oras"
 	log "github.com/sirupsen/logrus"
+	"oras.land/oras-go/pkg/oras"
 )
 
 // Push pushes a WASM module an OCI registry
