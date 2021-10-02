@@ -3,8 +3,8 @@ package oci
 import (
 	"io/ioutil"
 
-	"github.com/deislabs/oras/pkg/oras"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
+	"github.com/oras-project/oras-go/pkg/oras"
 	log "github.com/sirupsen/logrus"
 )
 

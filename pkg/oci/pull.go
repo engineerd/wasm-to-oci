@@ -3,11 +3,11 @@ package oci
 import (
 	"io/ioutil"
 
-	"github.com/deislabs/oras/pkg/oras"
+	"github.com/oras-project/oras-go/pkg/oras"
 	log "github.com/sirupsen/logrus"
 )
 
-// Pull pulls a WASM module from an OCI registry given a reference
+// Pull pulls a Wasm module from an OCI registry given a reference
 func Pull(ref, outFile string, insecure, useHTTP bool) error {
 	ctx, resolver, store := newORASContext(insecure, useHTTP)
 

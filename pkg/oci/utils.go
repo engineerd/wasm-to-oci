@@ -9,9 +9,9 @@ import (
 
 	"github.com/containerd/containerd/remotes"
 	"github.com/containerd/containerd/remotes/docker"
-	auth "github.com/deislabs/oras/pkg/auth/docker"
-	orascnt "github.com/deislabs/oras/pkg/content"
-	orasctx "github.com/deislabs/oras/pkg/context"
+	auth "github.com/oras-project/oras-go/pkg/auth/docker"
+	orascnt "github.com/oras-project/oras-go/pkg/content"
+	orasctx "github.com/oras-project/oras-go/pkg/context"
 )
 
 func newORASContext(insecure, useHTTP bool) (context.Context, remotes.Resolver, *orascnt.Memorystore) {
