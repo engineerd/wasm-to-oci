@@ -3,8 +3,8 @@
 The goal of this project is to propose an implementation of storing WebAssembly
 modules in OCI registries.
 
-This project is built with the [ORAS project](https://github.com/deislabs/oras),
-and currently works with:
+This project is built with the [ORAS project](https://oras.land/oras-go), and
+currently works with:
 
 - [Distribution (open source, version 2.7+)](https://github.com/docker/distribution)
 - [Azure Container Registry](https://docs.microsoft.com/en-us/azure/container-registry/)
