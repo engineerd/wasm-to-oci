@@ -3,7 +3,7 @@ module github.com/engineerd/wasm-to-oci
 go 1.16
 
 require (
-	github.com/containerd/containerd v1.5.5
+	github.com/containerd/containerd v1.5.7
 	github.com/docker/cli v20.10.7+incompatible
 	github.com/docker/distribution v2.7.1+incompatible
 	github.com/docker/docker v17.12.1-ce+incompatible // indirect
