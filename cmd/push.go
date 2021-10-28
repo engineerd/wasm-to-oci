@@ -22,7 +22,7 @@ func newPushCmd() *cobra.Command {
 	var opts pushOptions
 	cmd := &cobra.Command{
 		Use:   "push <module> <reference> [options]",
-		Short: "Pushes a WASM module from an OCI registry",
+		Short: "Pushes a WASM module to an OCI registry",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			opts.module = args[0]
