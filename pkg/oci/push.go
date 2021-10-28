@@ -8,7 +8,7 @@ import (
 	"oras.land/oras-go/pkg/oras"
 )
 
-// Push pushes a WASM module an OCI registry
+// Push pushes a WASM module to an OCI registry
 func Push(ref, module string, insecure, useHTTP bool) error {
 	ctx, resolver, store := newORASContext(insecure, useHTTP)
 
