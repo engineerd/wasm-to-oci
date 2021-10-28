@@ -7,7 +7,7 @@ import (
 	"oras.land/oras-go/pkg/oras"
 )
 
-// Pull pulls a WASM module from an OCI registry given a reference
+// Pull pulls a Wasm module from an OCI registry given a reference
 func Pull(ref, outFile string, insecure, useHTTP bool) error {
 	ctx, resolver, store := newORASContext(insecure, useHTTP)
 
