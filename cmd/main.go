@@ -40,8 +40,8 @@ func main() {
 	cmd.PersistentFlags().StringVarP(&trustDir, "dir", "d", defaultTrustDir(), "Directory where the trust data is persisted to")
 	cmd.PersistentFlags().StringVar(&logLevel, "log", "info", `Set the logging level ("debug"|"info"|"warn"|"error"|"fatal")`)
 	cmd.PersistentFlags().StringVarP(&timeout, "timeout", "t", "5s", `Timeout for the trust server`)
-	cmd.PersistentFlags().BoolVarP(&insecure, "insecure", "", false, "allow connections to SSL registry without certs")
-	cmd.PersistentFlags().BoolVarP(&useHTTP, "use-http", "", false, "use plain http and not https")
+	cmd.PersistentFlags().BoolVarP(&insecure, "insecure", "", false, "Allow connections to SSL registry without certs")
+	cmd.PersistentFlags().BoolVarP(&useHTTP, "use-http", "", false, "Use plain http instead of https")
 
 	cmd.AddCommand(newPushCmd(), newPullCmd())
 	if err := cmd.Execute(); err != nil {
