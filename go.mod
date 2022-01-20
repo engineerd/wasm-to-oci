@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/containerd/containerd v1.5.9
-	github.com/docker/cli v20.10.7+incompatible
+	github.com/docker/cli v20.10.12+incompatible
 	github.com/docker/distribution v2.7.1+incompatible
 	github.com/docker/docker v17.12.1-ce+incompatible // indirect
 	github.com/docker/go v1.5.1-1.0.20160303222718-d30aec9fd63c
