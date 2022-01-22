@@ -1,7 +1,23 @@
 name: GitHub Actions
 on: [push, pull_request]
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.13
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: latest
+          args: --verbose
   build:
+    needs: lint
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -14,8 +30,8 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Build, Test, Lint
+      - name: Build, Test
         run: |
           export GOPATH=$HOME/go && export GOBIN=$(go env GOPATH)/bin && export PATH=$PATH:$GOPATH&& export PATH=$PATH:$GOBIN && mkdir -p $GOBIN
 
-          make bootstrap build test lint build-cross
+          make build test build-cross
