@@ -2,40 +2,25 @@ package oci
 
 import (
 	"context"
-	"crypto/tls"
-	"fmt"
-	"net/http"
-	"os"
 
-	"github.com/containerd/containerd/remotes"
-	"github.com/containerd/containerd/remotes/docker"
-	auth "oras.land/oras-go/pkg/auth/docker"
+	"oras.land/oras-go/pkg/content"
 	orascnt "oras.land/oras-go/pkg/content"
 	orasctx "oras.land/oras-go/pkg/context"
 )
 
-func newORASContext(insecure, useHTTP bool) (context.Context, remotes.Resolver, *orascnt.Memorystore) {
+func check(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
+
+func newORASContext(opts content.RegistryOptions) (context.Context, *content.Registry, *orascnt.Memory) {
 	ctx := orasctx.Background()
-	memoryStore := orascnt.NewMemoryStore()
-	cli, err := auth.NewClient()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "WARNING: Error loading auth file: %v\n", err)
-	}
+	memoryStore := orascnt.NewMemory()
 
-	client := http.DefaultClient
-	if insecure {
-		client.Transport = &http.Transport{
-			TLSClientConfig: &tls.Config{
-				InsecureSkipVerify: true,
-			},
-		}
-	}
+	registry, err := content.NewRegistry(opts)
 
-	resolver, err := cli.Resolver(context.Background(), client, useHTTP)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "WARNING: Error loading resolver: %v\n", err)
-		resolver = docker.NewResolver(docker.ResolverOptions{})
-	}
+	check(err)
 
-	return ctx, resolver, memoryStore
+	return ctx, registry, memoryStore
 }

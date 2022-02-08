@@ -34,7 +34,8 @@ func newPullCmd() *cobra.Command {
 }
 
 func (p *pullOptions) run() error {
-	err := oci.Pull(p.ref, p.outFile, insecure, useHTTP)
+	
+	err := oci.Pull(p.ref, p.outFile, regopts)
 	if err != nil {
 		return err
 	}
