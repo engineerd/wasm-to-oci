@@ -13,19 +13,29 @@ func Push(ref, module string, opts content.RegistryOptions) error {
 	ctx, registry, store := newORASContext(opts)
 
 	contents, err := ioutil.ReadFile(module)
-	check(err)
+	if err != nil {
+		return err
+	}
 	desc, err := store.Add(module, ContentLayerMediaType, contents)
-	check(err)
+	if err != nil {
+		return err
+	}
 	manifest, manifestDesc, config, configDesc, err := content.GenerateManifestAndConfig(nil, nil, desc)
-	check(err)
+	if err != nil {
+		return err
+	}
 	store.Set(configDesc, config)
 	err = store.StoreManifest(ref, manifestDesc, manifest)
-	check(err)
+	if err != nil {
+		return err
+	}
 
 	log.Infof("Pushing %s to %s...\n", module, ref)
-	
+
 	desc, err = oras.Copy(ctx, store, ref, registry, "")
-	check(err)
+	if err != nil {
+		return err
+	}
 	log.Infof("Size: %v", desc.Size)
 	log.Infof("Pushed to %s with digest %s\n", ref, desc.Digest)
 

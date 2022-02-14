@@ -16,7 +16,9 @@ func Pull(ref, outFile string, opts content.RegistryOptions) error {
 	defer fileStore.Close()
 	allowedMediaTypes := []string{ContentLayerMediaType}
 	desc, err := oras.Copy(ctx, registry, ref, fileStore, "", oras.WithAllowedMediaTypes(allowedMediaTypes))
-	check(err)
+	if err != nil {
+		return err
+	}
 	log.Infof("Pulled: %v", ref)
 	log.Infof("Size: %v", desc.Size)
 	log.Infof("Digest: %v", desc.Digest)
