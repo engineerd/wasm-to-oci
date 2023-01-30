@@ -6,6 +6,7 @@ modules in OCI registries.
 This project is built with the [ORAS project](https://oras.land/oras-go), and
 currently works with:
 
+- [JFrog Artifactory](https://www.jfrog.com/confluence/)
 - [Distribution (open source, version 2.7+)](https://github.com/docker/distribution)
 - [Azure Container Registry](https://docs.microsoft.com/en-us/azure/container-registry/)
 - [Google Container Registry](https://cloud.google.com/container-registry/)
