@@ -8,8 +8,8 @@ import (
 )
 
 // Pull pulls a Wasm module from an OCI registry given a reference
-func Pull(ref, outFile string, insecure, useHTTP bool) error {
-	ctx, resolver, store := newORASContext(insecure, useHTTP)
+func Pull(ref, outFile string, proxyURL string, insecure, useHTTP bool) error {
+	ctx, resolver, store := newORASContext(proxyURL, insecure, useHTTP)
 
 	pullOpts := []oras.PullOpt{
 		oras.WithAllowedMediaType(ContentLayerMediaType),

@@ -17,6 +17,7 @@ var (
 	trustDir    string
 	logLevel    string
 	timeout     string
+	proxyURL    string
 
 	insecure bool
 	useHTTP  bool
@@ -42,6 +43,7 @@ func main() {
 	cmd.PersistentFlags().StringVarP(&timeout, "timeout", "t", "5s", `Timeout for the trust server`)
 	cmd.PersistentFlags().BoolVarP(&insecure, "insecure", "", false, "Allow connections to SSL registry without certs")
 	cmd.PersistentFlags().BoolVarP(&useHTTP, "use-http", "", false, "Use plain http instead of https")
+	cmd.PersistentFlags().StringVarP(&proxyURL, "proxy", "", "", `Allow connections to use proxy server`)
 
 	cmd.AddCommand(newPushCmd(), newPullCmd())
 	if err := cmd.Execute(); err != nil {

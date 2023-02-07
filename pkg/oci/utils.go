@@ -5,6 +5,7 @@ import (
 	"crypto/tls"
 	"fmt"
 	"net/http"
+	"net/url"
 	"os"
 
 	"github.com/containerd/containerd/remotes"
@@ -14,7 +15,8 @@ import (
 	orasctx "oras.land/oras-go/pkg/context"
 )
 
-func newORASContext(insecure, useHTTP bool) (context.Context, remotes.Resolver, *orascnt.Memorystore) {
+func newORASContext(proxyURL string, insecure, useHTTP bool) (context.Context, remotes.Resolver, *orascnt.Memorystore) {
+	var transport *http.Transport
 	ctx := orasctx.Background()
 	memoryStore := orascnt.NewMemoryStore()
 	cli, err := auth.NewClient()
@@ -22,14 +24,25 @@ func newORASContext(insecure, useHTTP bool) (context.Context, remotes.Resolver, 
 		fmt.Fprintf(os.Stderr, "WARNING: Error loading auth file: %v\n", err)
 	}
 
-	client := http.DefaultClient
 	if insecure {
-		client.Transport = &http.Transport{
+		transport = &http.Transport{
 			TLSClientConfig: &tls.Config{
 				InsecureSkipVerify: true,
 			},
 		}
 	}
+	if proxyURL != "" {
+		if transport == nil {
+			transport = &http.Transport{}
+		}
+		proxyURLParse, _ := url.Parse(proxyURL)
+		transport.Proxy = http.ProxyURL(proxyURLParse)
+	}
+
+	if transport == nil {
+		transport = &http.Transport{}
+	}
+	client := &http.Client{Transport: transport}
 
 	resolver, err := cli.Resolver(context.Background(), client, useHTTP)
 	if err != nil {
